@@ -39,10 +39,12 @@ public class Inventory {
 		String input = merge(shift(commend,0));
 		String[] inputs = input.split(" ");
 		ArrayList<String> outputs = new ArrayList<String>();
-		int counter = 0;
+
 		for (int i = 0; i < inputs.length; i++)
 		{
 			String temp = inputs[i];
+			if (temp.equals(""))
+				continue;
 
 			if (inputs[i].charAt(0) == '\"')
 			{
@@ -50,7 +52,6 @@ public class Inventory {
 				{
 					temp = temp.replace("\"","");
 					outputs.add(temp);
-					counter++;
 					continue;
 				}
 
@@ -64,7 +65,6 @@ public class Inventory {
 						temp = temp.replace("\"","");
 						outputs.add(temp);
 						i = j;
-						counter++;
 						break;
 					}
 				}
@@ -74,9 +74,6 @@ public class Inventory {
 				outputs.add(temp);
 			}
 		}
-
-		if (counter > 2)
-			System.out.println("Only <Name> and <Company> have whitespace.");
 
 		return outputs;
 	}
@@ -114,7 +111,7 @@ public class Inventory {
 
 				// LOAD
 				if (commend[0].equals("LOAD")) {
-					if (commend.length > 2) {
+					if (commend.length != 2) {
 						PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File(outputFile), true));
 						printWriter.append(commend[0]+ ": ERROR WRONG_ARGUMENT_COUNT\n");
 						printWriter.close();
@@ -125,7 +122,7 @@ public class Inventory {
 
 				// STORE
 				else if (commend[0].equals("STORE")) {
-					if (commend.length > 2) {
+					if (commend.length != 2) {
 						PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File(outputFile), true));
 						printWriter.append(commend[0]+ ": ERROR WRONG_ARGUMENT_COUNT\n");
 						printWriter.close();
@@ -136,7 +133,7 @@ public class Inventory {
 
 				// CLEAR
 				else if (commend[0].equals("CLEAR")) {
-					if (commend.length > 1) {
+					if (commend.length != 1) {
 						PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File(outputFile), true));
 						printWriter.append(commend[0]+ ": ERROR WRONG_ARGUMENT_COUNT\n");
 						printWriter.close();
@@ -224,7 +221,7 @@ public class Inventory {
 
 				// STATUS
 				else if (commend[0].equals("STATUS")) {
-					if (commend.length > 1) {
+					if (commend.length != 1) {
 						PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File(outputFile), true));
 						printWriter.append(commend[0]+ ": ERROR WRONG_ARGUMENT_COUNT\n");
 						printWriter.close();
@@ -235,20 +232,87 @@ public class Inventory {
 
 				// SEARCH
 				else if (commend[0].equals("SEARCH")) {
-					if (commend.length > 2) {
+					ArrayList<String> data = parseCommend(commend);
+					if (data.size() != 1) {
 						PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File(outputFile), true));
 						printWriter.append(commend[0]+ ": ERROR WRONG_ARGUMENT_COUNT\n");
 						printWriter.close();
 						continue;
 					}
-					database.search(commend[1]);
+					String[] dataStrings = data.stream().toArray(String[]::new);
+					database.search(dataStrings[0]);
 				}
 
+				// QUAN
+				else if (commend[0].equals("QUAN")) {
+					ArrayList<String> data = parseCommend(commend);
+					PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File(outputFile), true));
+
+					if (commend[1].equals("BETWEEN"))
+					{
+						if (data.size() != 3)
+						{
+							printWriter.append(commend[0]+ ": ERROR WRONG_ARGUMENT_COUNT\n");
+							printWriter.close();
+							continue;
+						}
+					}
+					else if (commend[1].equals("GREATER") || commend[1].equals("FEWER"))
+					{	
+						if (data.size() != 2) 
+						{
+							printWriter.append(commend[0]+ ": ERROR WRONG_ARGUMENT_COUNT\n");
+							printWriter.close();
+							continue;
+						}
+					}
+
+					else
+					{
+						printWriter.append(commend[0]+ ": ERROR UNKNOWN_COMMAND\n");
+						printWriter.close();
+						continue;
+					}
+
+					String[] dataStrings = data.stream().toArray(String[]::new);
+					
+					try {
+						if (commend[1].equals("BETWEEN"))
+						{
+							int quantity1 = Math.min(Integer.parseInt(dataStrings[1]), Integer.parseInt(dataStrings[2]));
+							int quantity2 = Math.max(Integer.parseInt(dataStrings[1]), Integer.parseInt(dataStrings[2]));
+							if (quantity1 < 0 || quantity2 < 0 || quantity1 == quantity2)
+							{
+								printWriter.append(commend[0]+ ": ERROR INVALID_QUANTITY\n");
+								printWriter.close();
+								continue;
+							}
+							dataStrings[1] = Integer.toString(quantity1);
+							dataStrings[2] = Integer.toString(quantity2);
+						}
+						else
+						{
+							int quantity = Integer.parseInt(dataStrings[1]);
+							if (quantity <= 0)
+							{
+								printWriter.append(commend[0]+ ": ERROR INVALID_QUANTITY\n");
+								printWriter.close();
+								continue;
+							}
+						}
+
+					} catch (Exception e) {
+						printWriter.append(commend[0]+ ": ERROR INVALID_QUANTITY\n");
+						printWriter.close();
+						continue;
+					}
+
+					database.quan(dataStrings);
+				}
 				// OTHERS
 				else {
-					System.out.println("Wrong commend");
 					PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File(outputFile), true));
-					printWriter.append(commend[0]+ ": ERROR UNKOWN_COMMAND\n");
+					printWriter.append(commend[0]+ ": ERROR UNKNOWN_COMMAND\n");
 					printWriter.close();
 				}
 			}

@@ -73,7 +73,6 @@ public class Database {
     				return;
 			}
 
-			System.out.println(name);
 			this.database = CSV.load(name);
 			this.num_entry = this.database.size();
 			printWriter.append("LOAD: OK " + this.num_entry + "\n");
@@ -289,27 +288,68 @@ public class Database {
 
 	public void search(String data) {
 		String[] temp;
+		ArrayList<String> outputs = new ArrayList<String>();
+
 		int count = 0;
 		try {
 			PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File(outputFile), true));
 			ListIterator iterator = this.database.listIterator();
-			while (iterator.hasNext()) {
+			while (iterator.hasNext())
+			{
 				temp = (String[])iterator.next();
-				if (temp[1].contains(data) || temp[2].contains(data)) {
+				if (temp[0].contains(data) || temp[1].contains(data)) {
+					outputs.add(temp[0] + "," + temp[1] + "," + temp[2] + "," + temp[3] + "\n");
 					count++;
 				}
 			}
 			printWriter.append("SEARCH: OK " + count + "\n");
-			iterator = this.database.listIterator();
-			while (iterator.hasNext()) {
-				temp = (String[])iterator.next();
-				if (temp[1].contains(data) || temp[2].contains(data)) {
-					printWriter.append(temp[1] + "," + temp[2] + "," + temp[0] + "," + temp[3] + "\n");
-				}
-			}	
+			ListIterator outputIter = outputs.listIterator();
+			while (outputIter.hasNext())
+				printWriter.append((String)outputIter.next());
+
 			printWriter.close();
 		} catch (Exception e) {
 			System.out.println(e + " in search method");
+		}
+	}
+	
+	public void quan(String[] data) {
+		String[] temp;
+		ArrayList<String> outputs = new ArrayList<String>();
+
+		int count = 0;
+		try {
+			PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File(outputFile), true));
+			ListIterator iterator = this.database.listIterator();
+			while (iterator.hasNext())
+			{
+				temp = (String[])iterator.next();
+				if (data[0].equals("GREATER") && Integer.parseInt(temp[3]) > Integer.parseInt(data[1]))
+				{
+					outputs.add(temp[0] + "," + temp[1] + "," + temp[2] + "," + temp[3] + "\n");
+					count++;
+				}
+				else if (data[0].equals("FEWER") && Integer.parseInt(temp[3]) < Integer.parseInt(data[1]))
+				{
+					outputs.add(temp[0] + "," + temp[1] + "," + temp[2] + "," + temp[3] + "\n");
+					count++;
+				}
+				else if (data[0].equals("BETWEEN") && Integer.parseInt(temp[3]) > Integer.parseInt(data[1]) 
+						&& Integer.parseInt(temp[3]) < Integer.parseInt(data[2]))
+				{
+					outputs.add(temp[0] + "," + temp[1] + "," + temp[2] + "," + temp[3] + "\n");
+					count++;
+				}
+				else {}
+			}
+			printWriter.append("QUAN: OK " + count + "\n");
+			ListIterator outputIter = outputs.listIterator();
+			while (outputIter.hasNext())
+				printWriter.append((String)outputIter.next());
+
+			printWriter.close();
+		} catch (Exception e) {
+			System.out.println(e + " in quan method");
 		}
 	}
 }
