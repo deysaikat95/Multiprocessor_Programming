@@ -6,13 +6,13 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-//import org.apache.commons.validator.DateValidator;
-
 public class Database {
 	private static String outputFile;
 	private static String inputFile;
 
+	/* database */
 	private ArrayList<String[]> database;
+	/* number of entries in database */
 	private int num_entry;
 
 	Database(String inputFile, String outputFile)
@@ -23,6 +23,7 @@ public class Database {
 		num_entry = 0;
 	}
 
+	/* check data is valid */
 	private static boolean isValidDate(String inDate) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     	dateFormat.setLenient(false);
@@ -34,6 +35,7 @@ public class Database {
     		return true;
 	}
 
+	/* internal search in database */
 	private int internalSearch (String name, String company) {
 		try {
 			String[] temp;
@@ -44,6 +46,7 @@ public class Database {
 			ListIterator iterator = this.database.listIterator();
 			while (iterator.hasNext()) {
 				temp = (String[])iterator.next();
+				/* find matched name or company */
 				if (temp[0].equals(name) && temp[1].equals(company)) {
 					return this.database.indexOf(temp);
 				}
@@ -56,25 +59,24 @@ public class Database {
 		}
 	}
 
-	// public static boolean dateVailidator (String date) {
-	// 	datevailidator = new DateValidator();
-	// 	return datevailidator.isValid(date,"MM/dd/yyyy",true);
-	// }
-
 	/* LOAD */
 	public void load(String name) {
 		try {
 			PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File(this.outputFile), true));
 			File f = new File(name);
 
+			/* check file exists */
 			if(!f.exists()) { 
     				printWriter.append("LOAD: ERROR FILE_NOT_FOUND\n");
     				printWriter.close();
     				return;
 			}
 
+			/* load the csv file */
 			this.database = CSV.load(name);
 			this.num_entry = this.database.size();
+
+			/* output */
 			printWriter.append("LOAD: OK " + this.num_entry + "\n");
 			printWriter.close();
 		} catch (Exception e) {
@@ -82,10 +84,13 @@ public class Database {
 		}
 	}
 
+	/* CLEAN */
 	public void clear() {
 		try {
 			PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File(outputFile), true));
 			this.database = new ArrayList<String[]>();
+
+			/* reset number of entries */
 			num_entry = 0;
 			printWriter.append("CLEAR: OK\n");
 			printWriter.close();
@@ -94,6 +99,7 @@ public class Database {
 		}
 	}
 
+	/* ADD*/
 	public void add(String[] data) {
 		try {
 			PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File(outputFile), true));
@@ -104,15 +110,18 @@ public class Database {
 				return;
 			}
 
+			/* check date is valid */
 			if (!Database.isValidDate(data[2])) {
 				printWriter.append("ADD: ERROR INVALID_DATE\n");
 				printWriter.close();
 				return;
 			}
 
+			/* add to database */
 			this.database.add(data);
 			this.num_entry = this.database.size();
 
+			/* output */
 			printWriter.append("ADD: OK ");
 
 			if(data[0].contains(" "))
@@ -157,10 +166,13 @@ public class Database {
 			String[] temp = this.database.get(index);
 
 			int quantity = Integer.parseInt(temp[3]);
+
+			/* add quantity */
 			quantity += Integer.parseInt(data[2]);
 
 			temp[3] =  Integer.toString(quantity);
 
+			/* output */
 			printWriter.append("BUY: OK ");
 
 			if(data[0].contains(" "))
@@ -209,6 +221,8 @@ public class Database {
 			String[] temp = this.database.get(index);
 
 			int quantity = Integer.parseInt(temp[3]);
+
+			/* subtract quantity */
 			quantity -= Integer.parseInt(data[2]);
 			if (quantity < 0)
 			{
@@ -220,6 +234,7 @@ public class Database {
 
 			temp[3] =  Integer.toString(quantity);
 
+			/* output */
 			printWriter.append("SELL: OK ");
 
 			if(data[0].contains(" "))
@@ -254,11 +269,14 @@ public class Database {
 		}
 	}
 
-
 	public void store(String name) {
 		try {
 			PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File(outputFile), true));
+
+			/* store database to csv file */
 			CSV.store(name,this.database);
+
+			/* output */
 			printWriter.append("STORE: OK " + this.num_entry + "\n");
 			printWriter.close();
 
@@ -271,12 +289,14 @@ public class Database {
 		String[] temp;
 		try {
 			PrintWriter printWriter = new PrintWriter(new FileOutputStream(new File(outputFile), true));
+			/* output */
 			printWriter.append("STATUS: OK " + this.database.size() + "\n");
 
 			ListIterator iterator = this.database.listIterator();
 			while (iterator.hasNext())
 			{
 				temp = (String[])iterator.next();
+				/* print database entries */
 				printWriter.append(temp[0] + "," + temp[1] + "," + temp[2] + "," + temp[3] + "\n");
 			}
 
@@ -297,11 +317,13 @@ public class Database {
 			while (iterator.hasNext())
 			{
 				temp = (String[])iterator.next();
+				/* find matched entry */
 				if (temp[0].contains(data) || temp[1].contains(data)) {
 					outputs.add(temp[0] + "," + temp[1] + "," + temp[2] + "," + temp[3] + "\n");
 					count++;
 				}
 			}
+			/* output */
 			printWriter.append("SEARCH: OK " + count + "\n");
 			ListIterator outputIter = outputs.listIterator();
 			while (outputIter.hasNext())
@@ -324,24 +346,29 @@ public class Database {
 			while (iterator.hasNext())
 			{
 				temp = (String[])iterator.next();
+				/* GREATER */
 				if (data[0].equals("GREATER") && Integer.parseInt(temp[3]) > Integer.parseInt(data[1]))
 				{
 					outputs.add(temp[0] + "," + temp[1] + "," + temp[2] + "," + temp[3] + "\n");
 					count++;
 				}
+				/* FEWER */
 				else if (data[0].equals("FEWER") && Integer.parseInt(temp[3]) < Integer.parseInt(data[1]))
 				{
 					outputs.add(temp[0] + "," + temp[1] + "," + temp[2] + "," + temp[3] + "\n");
 					count++;
 				}
+				/* BETWEEN */
 				else if (data[0].equals("BETWEEN") && Integer.parseInt(temp[3]) > Integer.parseInt(data[1]) 
 						&& Integer.parseInt(temp[3]) < Integer.parseInt(data[2]))
 				{
 					outputs.add(temp[0] + "," + temp[1] + "," + temp[2] + "," + temp[3] + "\n");
 					count++;
 				}
+				/* other */
 				else {}
 			}
+			/* output */
 			printWriter.append("QUAN: OK " + count + "\n");
 			ListIterator outputIter = outputs.listIterator();
 			while (outputIter.hasNext())

@@ -8,6 +8,7 @@ public class Inventory {
 	private static String outputFile = "out.txt";
 	private static String inputFile = "in.txt";
 
+	/* internal method for shifting all strings to left in a string array */
 	private static String[] shift(String[] data, int offset) {
 		int i=0;
 		String[] temp = new String[data.length-1];
@@ -23,6 +24,8 @@ public class Inventory {
 			return null;
 		}
 	}
+
+	/* internal method for printing strings in a string array */
 	private static void printList(ArrayList<String> input)
 	{
 		Iterator iter = input.iterator();
@@ -35,6 +38,7 @@ public class Inventory {
 		}
 	}
 
+	/* internal method for parsing commend input */
 	private static ArrayList<String> parseCommend(String[] commend) {
 		String input = merge(shift(commend,0));
 		String[] inputs = input.split(" ");
@@ -46,6 +50,7 @@ public class Inventory {
 			if (temp.equals(""))
 				continue;
 
+			/* start of double quote */
 			if (inputs[i].charAt(0) == '\"')
 			{
 				if (inputs[i].charAt(inputs[i].length()-1) == '\"')
@@ -60,6 +65,8 @@ public class Inventory {
 				{
 					temp = temp.concat(" ");
 					temp = temp.concat(inputs[j]);
+
+					/* end of double quote */
 					if (inputs[j].charAt(inputs[j].length()-1) == '\"')
 					{
 						temp = temp.replace("\"","");
@@ -71,6 +78,7 @@ public class Inventory {
 			}
 			else
 			{
+				/* if there is no double quotes */
 				outputs.add(temp);
 			}
 		}
@@ -78,6 +86,7 @@ public class Inventory {
 		return outputs;
 	}
 
+	/* merge strings in a string array to a single string */
 	private static String merge(String[] data) {
 		try{
 			String result = data[0];
@@ -102,6 +111,7 @@ public class Inventory {
 			String line = new String();
 			String[] commend;
 
+			/* main loop */
 			while (true) {
 				line = bufferedReader.readLine();
 				if (line == null)
@@ -167,6 +177,7 @@ public class Inventory {
 						continue;
 					}
 
+					/* convert ArrayList<String> to String array */
 					String[] dataStrings = data.stream().toArray(String[]::new);
 
 					try {
@@ -198,6 +209,7 @@ public class Inventory {
 						continue;
 					}
 
+					/* convert ArrayList<String> to String array */
 					String[] dataStrings = data.stream().toArray(String[]::new);
 
 					try {
@@ -274,6 +286,7 @@ public class Inventory {
 						continue;
 					}
 
+					/* convert ArrayList<String> to String array */
 					String[] dataStrings = data.stream().toArray(String[]::new);
 					
 					try {
