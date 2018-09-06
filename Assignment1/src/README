@@ -1,0 +1,12 @@
+Put input file (e.q., in.txt, in.csv) on <path-to-src>/src.
+
+To build,
+$ make
+
+To claen
+$ make clean
+
+To run
+./runThis.sh
+
+The output files (e.q., out.txt, out.csv) are on <path-to-src>/src.
