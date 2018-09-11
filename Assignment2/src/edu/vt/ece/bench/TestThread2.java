@@ -1,7 +1,7 @@
 package edu.vt.ece.bench;
 
 /**
- * 
+ *
  * @author Balaji Arun
  */
 public class TestThread2 extends Thread implements ThreadId{
@@ -17,18 +17,18 @@ public class TestThread2 extends Thread implements ThreadId{
 		this.counter = counter;
 		this.iter = iter;
 	}
-	
+
 	@Override
 	public void run() {
 		long start = System.currentTimeMillis();
 
 		for(int i=0; i<iter; i++)
 			counter.getAndIncrement();
-		
+
 		long end = System.currentTimeMillis();
 		elapsed = end - start;
 	}
-	
+
 	public int getThreadId(){
 		return id;
 	}

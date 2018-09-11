@@ -3,7 +3,7 @@ package edu.vt.ece.bench;
 import edu.vt.ece.locks.Lock;
 
 /**
- * 
+ *
  * @author Mohamed M. Saad
  */
 public class SharedCounter extends Counter{
@@ -13,7 +13,7 @@ public class SharedCounter extends Counter{
 		super(c);
 		this.lock = lock;
 	}
-	
+
 	@Override
 	public int getAndIncrement() {
 		lock.lock();

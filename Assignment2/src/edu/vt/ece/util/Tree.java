@@ -1,7 +1,7 @@
 package edu.vt.ece.util;
 
 /**
- * 
+ *
  * @author Mohamed M. Saad
  */
 public class Tree<T extends Comparable<T>> implements Cloneable{
@@ -39,7 +39,7 @@ public class Tree<T extends Comparable<T>> implements Cloneable{
 				left.add(node);
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		Tree<Integer> tree = new Tree<Integer>(4);
 		tree.add(2);
@@ -49,12 +49,12 @@ public class Tree<T extends Comparable<T>> implements Cloneable{
 		tree.add(5);
 		tree.add(7);
 		/*
- 	 	Tree now should be like that
+		Tree now should be like that
                    4
                2        6
              1   3    5   7
 		 */
-		
+
 		// print left branch from the root till the left-most leaf
 		Tree<Integer> itr = tree;
 		do{

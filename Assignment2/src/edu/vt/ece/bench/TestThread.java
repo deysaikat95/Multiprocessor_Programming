@@ -1,7 +1,7 @@
 package edu.vt.ece.bench;
 
 /**
- * 
+ *
  * @author Mohamed M. Saad
  */
 public class TestThread extends Thread implements ThreadId {
@@ -14,14 +14,14 @@ public class TestThread extends Thread implements ThreadId {
 		id = ID_GEN++;
 		this.counter = counter;
 	}
-	
+
 	@Override
 	public void run() {
 		for(int i=0; i<MAX_COUNT; i++)
 			counter.getAndIncrement();
 		System.out.println("Thread " + id + " DONE.. <Counter:" + counter + ">");
 	}
-	
+
 	public int getThreadId(){
 		return id;
 	}

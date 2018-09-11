@@ -1,7 +1,7 @@
 package edu.vt.ece.bench;
 
 /**
- * 
+ *
  * @author Mohamed M. Saad
  */
 public class Counter {

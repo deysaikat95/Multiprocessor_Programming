@@ -24,7 +24,7 @@ public class Bakery implements Lock
 			label[i] = new AtomicInteger();
 		}
 	}
-	
+
 	private boolean lexicographic(int a, int i, int b, int j)
 	{
 		if (a > b)
@@ -48,7 +48,7 @@ public class Bakery implements Lock
 			maxLabel = Math.max(maxLabel, label[i].get());
 		}
 		label[me].set(maxLabel+1);
-	
+
 		do {
 			for (int k = 0; k < label.length; k++)
 			{
@@ -57,7 +57,6 @@ public class Bakery implements Lock
 			}
 
 		} while(found);
-	
 	}
 
 	@Override

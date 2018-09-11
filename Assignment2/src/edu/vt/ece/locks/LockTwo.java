@@ -10,7 +10,7 @@ public class LockTwo implements Lock{
 	public LockTwo() {
 		victim = new AtomicInteger();
 	}
-	
+
 	@Override
 	public void lock() {
 		int i = ((ThreadId)Thread.currentThread()).getThreadId();

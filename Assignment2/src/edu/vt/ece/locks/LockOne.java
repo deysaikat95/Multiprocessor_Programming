@@ -11,7 +11,7 @@ public class LockOne implements Lock{
 		flag[0] = new AtomicBoolean();
 		flag[1] = new AtomicBoolean();
 	}
-	
+
 	@Override
 	public void lock() {
 		int i = ((ThreadId)Thread.currentThread()).getThreadId();

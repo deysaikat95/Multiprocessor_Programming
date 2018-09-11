@@ -31,7 +31,7 @@ public class Filter implements Lock{
 				for(int k=0; k<level.length; k++) {
 					if(k!=me && (found = (level[k].get() >= i && victim[i].get() == me)))
 						break;
-				} 
+				}
 			} while(found);
 		}
 	}
