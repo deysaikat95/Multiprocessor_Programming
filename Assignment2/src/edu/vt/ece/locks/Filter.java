@@ -8,7 +8,7 @@ public class Filter implements Lock{
 	private AtomicInteger[] victim;
 
 	public Filter() {
-		this(2);
+		this(16);
 	}
 
 	public Filter(int n){
@@ -19,7 +19,7 @@ public class Filter implements Lock{
 			victim[i] = new AtomicInteger();
 		}
 	}
-	
+
 	@Override
 	public void lock() {
 		int me = ((ThreadId)Thread.currentThread()).getThreadId();
