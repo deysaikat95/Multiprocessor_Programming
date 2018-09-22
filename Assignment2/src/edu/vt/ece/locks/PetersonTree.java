@@ -1,12 +1,16 @@
 package edu.vt.ece.locks;
+import edu.vt.ece.bench.ThreadId;
 
 import java.util.*;
-import edu.vt.ece.bench.ThreadId;
 
 public class PetersonTree implements Lock{
 	int num;
 	PetersonNode root;
 	ArrayList<PetersonNode> leaves;
+	
+	public PetersonTree() {
+		this(2);
+	}
 
 	public PetersonTree(int num) {
 		this.num = num;
@@ -17,7 +21,6 @@ public class PetersonTree implements Lock{
 
 		leaves = buildTree(temp);
 	}
-
 
 	@Override
 	public void lock() {

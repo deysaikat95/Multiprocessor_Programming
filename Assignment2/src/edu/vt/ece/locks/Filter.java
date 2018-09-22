@@ -8,7 +8,7 @@ public class Filter implements Lock{
 	private AtomicInteger[] victim;
 
 	public Filter() {
-		this(16);
+		this(2);
 	}
 
 	public Filter(int n){

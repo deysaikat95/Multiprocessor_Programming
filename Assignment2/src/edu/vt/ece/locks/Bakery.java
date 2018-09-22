@@ -11,7 +11,7 @@ public class Bakery implements Lock
 
 	public Bakery()
 	{
-		this(16);
+		this(2);
 	}
 
 	public Bakery(int n)
