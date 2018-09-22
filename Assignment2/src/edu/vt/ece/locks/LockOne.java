@@ -17,8 +17,8 @@ public class LockOne implements Lock{
 		int i = ((ThreadId)Thread.currentThread()).getThreadId();
 		int j = 1 - i;
 		flag[i].set(true);
-		while(flag[j].get());
-//			System.out.println("Thread " + i + " waiting");
+		while(flag[j].get())
+			System.out.println("Thread " + i + " waiting");
 	}
 
 	@Override

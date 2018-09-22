@@ -19,7 +19,7 @@ public class TestThread extends Thread implements ThreadId {
 	public void run() {
 		for(int i=0; i<MAX_COUNT; i++)
 			counter.getAndIncrement();
-		System.out.println("Thread " + id + " DONE.. <Counter:" + counter + ">");
+		System.out.println("Thread " + id + " DONE.. Counter:" + counter);
 	}
 
 	public int getThreadId(){

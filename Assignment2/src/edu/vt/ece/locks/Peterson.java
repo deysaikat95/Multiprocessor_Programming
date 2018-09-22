@@ -14,7 +14,7 @@ public class Peterson implements Lock{
 		flag[1] = new AtomicBoolean();
 		victim = new AtomicInteger();
 	}
-
+	
 	@Override
 	public void lock() {
 		int i = ((ThreadId)Thread.currentThread()).getThreadId();

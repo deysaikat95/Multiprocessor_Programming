@@ -19,6 +19,7 @@ public class Test2 {
 	private static final String PETERSON = "Peterson";
 	private static final String FILTER = "Filter";
 	private static final String BAKERY = "Bakery";
+	private static final String PTREE = "PetersonTree";
 
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException {
 		String lockClass = (args.length==0 ? BAKERY : args[0]);
