@@ -32,6 +32,7 @@ public class Filter implements Lock{
 					if(k!=me && (found = (level[k].get() >= i && victim[i].get() == me)))
 						break;
 				}
+				Thread.yield();
 			} while(found);
 		}
 	}

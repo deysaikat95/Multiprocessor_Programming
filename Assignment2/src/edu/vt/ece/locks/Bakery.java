@@ -55,7 +55,7 @@ public class Bakery implements Lock
 				if (k!=me && (found = (flag[k].get() && lexicographic(label[me].get(), me, label[k].get(), k))))
 					break;
 			}
-
+			Thread.yield();
 		} while(found);
 	}
 
