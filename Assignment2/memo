@@ -1,0 +1,72 @@
+LockOne
+Yes
+Yes (sequential running is fair, otherwice not)
+No
+No
+
+LockTwo
+Yes
+Yes
+No
+No
+
+Peterson
+Yes
+Yes
+Yes
+Yes
+
+Filter
+Yes
+Yes
+Yes
+Yes
+
+Bakery
+Yes
+Yes
+Yes
+Yes
+
+Filter
+2:41
+4:141
+8:593
+16:1898
+32:21970
+Filter: r-bounded waiting algorithm, weak fairness
+
+Bakery
+2:48
+4:108
+8:251
+16:6319
+32:49545
+Bakery: 1-bounded waiting algorithm, strong fairness
+
+Env:
+64000 Iter
+1000 counter
+
+Rlogin
+Bakery
+9PM
+1: 44, 111, 279, 6900, 48843
+2: 45, 99, 293, 4805, 49312
+3: 48, 97, 295, 7261, 50311
+
+PTree
+9PM
+1: 47, 113, 266, 646, 1392
+2: 54, 86, 246, 627, 1374
+3: 47, 93, 243, 644, 1375
+
+12PM
+1: 44, 98, 255, 637, 1388
+2: 43, 88, 254, 627, 1387
+3: 49, 95, 252, 650, 1404
+
+local
+1: 32, 70, 146
+2: 31, 67, 144 
+3: 34, 67, 149
