@@ -44,14 +44,13 @@ public class Bakery implements Lock
 		int meLabel = 0;
 		int kLabel = 0;
 		boolean found = false;
-		flag[me].set(true);
 		for (int i = 0; i < label.length; i++)
 		{
 			maxLabel = Math.max(maxLabel, label[i].get());
 		}
+		flag[me].set(true);
 		label[me].set(maxLabel + 1);
 		meLabel = maxLabel + 1;
-
 		do {
 			for (int k = 0; k < label.length; k++)
 			{
