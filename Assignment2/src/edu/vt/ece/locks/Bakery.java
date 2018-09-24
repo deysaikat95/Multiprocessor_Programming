@@ -41,21 +41,27 @@ public class Bakery implements Lock
 	public void lock() {
 		int me = ((ThreadId)Thread.currentThread()).getThreadId();
 		int maxLabel = 0;
+		int meLabel = 0;
+		int kLabel = 0;
 		boolean found = false;
 		flag[me].set(true);
 		for (int i = 0; i < label.length; i++)
 		{
 			maxLabel = Math.max(maxLabel, label[i].get());
 		}
-		label[me].set(maxLabel+1);
+		label[me].set(maxLabel + 1);
+		meLabel = maxLabel + 1;
 
 		do {
 			for (int k = 0; k < label.length; k++)
 			{
-				if (k!=me && (found = (flag[k].get() && lexicographic(label[me].get(), me, label[k].get(), k))))
-					break;
+				if (k!=me)
+				{
+					kLabel = label[k].get();
+					if (found = (flag[k].get() && (meLabel > kLabel || (meLabel == kLabel && me > k))))
+						break;
+				}
 			}
-			Thread.yield();
 		} while(found);
 	}
 
