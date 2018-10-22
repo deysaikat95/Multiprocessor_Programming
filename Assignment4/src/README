@@ -1,0 +1,9 @@
+Question1:
+	$java Q1.Test
+
+Question2:
+	$java Q2.Test
+
+Question3:
+	$java Q3.Test (lock)
+	$java Q3.Test2 (trylock)
