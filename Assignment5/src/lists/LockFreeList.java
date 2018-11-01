@@ -48,7 +48,7 @@ public class LockFreeList<T> {
       } else {
         // splice in new node
         Node node = new Node(item);
-        node.next = new AtomicMarkableReference(curr, false);
+        node.next = new AtomicMarkableReference<LockFreeList<T>.Node>(curr, false);
         if (pred.next.compareAndSet(curr, node, false, false)) {
           return true;
         }

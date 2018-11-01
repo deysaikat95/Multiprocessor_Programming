@@ -21,7 +21,7 @@ public class LazyListTest extends TestCase {
   
   public LazyListTest(String testName) {
     super(testName);
-    instance = new LazyList();
+    instance = new LazyList<Integer>();
   }
   
   public static Test suite() {
