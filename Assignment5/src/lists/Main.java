@@ -66,7 +66,7 @@ public class Main {
 		}
 		
 		for (int t = 0; t < TOTAL_THREAD_COUNT; t++) {
-			threads[t].run();
+			threads[t].start();
 		}
 
 		long totalTime = 0;

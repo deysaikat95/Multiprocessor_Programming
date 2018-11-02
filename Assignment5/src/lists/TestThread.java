@@ -28,27 +28,42 @@ public class TestThread extends Thread implements ThreadId{
 	public void run() {
 		long start = System.currentTimeMillis();
 		switch (operation) {
-			case 0:
-				for(int i = 0; i < iter; i++) {
+		case 0:
+			for(int i = 0; i < iter; i++) {
+				while(true) {
 					int randomInt = threadLocalRandom.nextInt(0, 100);
-					set.add(randomInt);
+					if (set.add(randomInt))
+					{
+						//System.out.println((randomInt+i) + " add");
+						break;
+					}
 				}
-				break;
-			case 1:
-				for(int i = 0; i < iter; i++) {
-					int randomInt = threadLocalRandom.nextInt(0, 100);
-					set.remove(randomInt);
-				}
-				break;
-			case 2:
-				for(int i = 0; i < iter; i++) {
-					int randomInt = threadLocalRandom.nextInt(0, 100);
-					set.contains(randomInt);
-				}
-				break;
+			}
+			break;
 
-			default:
-				System.out.println("Wrong operation");
+		case 1:
+			for(int i = 0; i < iter; i++) {
+				while(true) {
+					int randomInt = threadLocalRandom.nextInt(0, 100);
+					if (set.remove(randomInt))
+					{
+						//System.out.println((randomInt+i) + " remove");
+						break;
+					}
+				}
+			}
+			break;
+
+		case 2:
+			for(int i = 0; i < iter; i++) {
+				int randomInt = threadLocalRandom.nextInt(0, 100);
+				set.contains(randomInt);
+			}
+			break;
+		
+		default:
+			System.out.println("Wrong operation");
+	
 		}
 		long end = System.currentTimeMillis();
 		elapsed = end - start;

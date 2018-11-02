@@ -83,7 +83,8 @@ public class CoarseList<T> implements Set<T> {
   public boolean remove(T item) {
     Node pred, curr;
     int key = item.hashCode();
-    lock.lock();
+    //lock.lock();
+    synchronized(this) {
     try {
       pred = this.head;
       curr = pred.next;
@@ -97,9 +98,17 @@ public class CoarseList<T> implements Set<T> {
       } else {
         return false;         // not present
       }
+    } catch (Exception e)
+    {
+	System.out.println(e);
+	return false;
+    }
+   }
+  /*
     } finally {               // always unlock
       lock.unlock();
     }
+   */
   }
   /**
    * Test whether element is present
