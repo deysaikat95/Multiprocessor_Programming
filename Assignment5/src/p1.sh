@@ -1,5 +1,5 @@
 #!/bin/sh
-ITER=1000
+ITER=10000
 
 ADD=2
 REMOVE=1
