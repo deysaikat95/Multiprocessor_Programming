@@ -6,8 +6,8 @@ public class Main {
 	static int ADD_THREAD_COUNT = 5;
 	static int REMOVE_THREAD_COUNT = 5;
 	static int CONTAINS_THREAD_COUNT = 15;
-	static int TOTAL_ITERS = 100000;
-	static int ITERS;
+	static int TOTAL_ITERS;
+	static int ITER = 1000;
 
 	static Set<Integer> myList;
 	//static Set<Integer> myFineList;
@@ -27,7 +27,7 @@ public class Main {
 		ADD_THREAD_COUNT = Integer.parseInt(args[1]);
 		REMOVE_THREAD_COUNT = Integer.parseInt(args[2]);
 		CONTAINS_THREAD_COUNT = Integer.parseInt(args[3]);
-		TOTAL_ITERS = Integer.parseInt(args[4]);
+		ITER = Integer.parseInt(args[4]);
 
 		if (listType.equals("CoarseList"))
 			myList = new CoarseList<Integer>();
@@ -51,18 +51,18 @@ public class Main {
 
 		int TOTAL_THREAD_COUNT = ADD_THREAD_COUNT + REMOVE_THREAD_COUNT
 							  + CONTAINS_THREAD_COUNT;
-		ITERS = TOTAL_ITERS/TOTAL_THREAD_COUNT;
+		TOTAL_ITERS = ITER * TOTAL_THREAD_COUNT;
 		
 		final TestThread[] threads = new TestThread[TOTAL_THREAD_COUNT];
 
 		for (int i = 0; i < ADD_THREAD_COUNT; i++) {
-			threads[i] = new TestThread(myList, 0, ITERS);
+			threads[i] = new TestThread(myList, 0, ITER);
 		}
 		for (int j = 0; j < REMOVE_THREAD_COUNT; j++) {
-			threads[j + ADD_THREAD_COUNT] = new TestThread(myList, 1, ITERS);
+			threads[j + ADD_THREAD_COUNT] = new TestThread(myList, 1, ITER);
 		}
 		for (int k = 0; k < CONTAINS_THREAD_COUNT; k++) {
-			threads[k + ADD_THREAD_COUNT + REMOVE_THREAD_COUNT] = new TestThread(myList, 2, ITERS);
+			threads[k + ADD_THREAD_COUNT + REMOVE_THREAD_COUNT] = new TestThread(myList, 2, ITER);
 		}
 		
 		for (int t = 0; t < TOTAL_THREAD_COUNT; t++) {

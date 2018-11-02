@@ -48,26 +48,33 @@ public class CoarseList<T> implements Set<T> {
   public boolean add(T item) {
     Node pred, curr;
     int key = item.hashCode();
-    lock.lock();
-    try {
-      pred = head;
-      curr = pred.next;
-      while (curr.key < key) {
-        pred = curr;
-        curr = curr.next;
+    //lock.lock();
+    synchronized(this) {
+      try {
+        pred = head;
+        curr = pred.next;
+        while (curr.key < key) {
+          pred = curr;
+          curr = curr.next;
+        }
+        if (key == curr.key) {
+          return false;
+        } else {
+          Node node = new Node(item);
+          node.next = curr;
+          pred.next = node;
+          return true;
+        }
+      } catch (Exception e) 
+      {
+        System.out.println(e);
+	return false;
       }
-      if (key == curr.key) {
-        return false;
-      } else {
-        Node node = new Node(item);
-        node.next = curr;
-        pred.next = node;
-        return true;
-      }
-    } finally {
-      lock.unlock();
     }
   }
+    //finally {
+    //  lock.unlock();
+    //}
   /**
    * Remove an element.
    * @param item element to remove
