@@ -18,7 +18,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @param T Item type.
  * @author Maurice Herlihy
  */
-public class LazyList<T> {
+public class LazyList<T> implements Set<T> {
   /**
    * First list Node
    */

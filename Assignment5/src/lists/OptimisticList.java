@@ -16,7 +16,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @param T Item type.
  * @author Maurice Herlihy
  */
-public class OptimisticList<T> {
+public class OptimisticList<T> implements Set<T> {
   /**
    * First list entry
    */

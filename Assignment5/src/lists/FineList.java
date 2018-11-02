@@ -15,7 +15,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @param T Item type.
  * @author Maurice Herlihy
  */
-public class FineList<T> {
+public class FineList<T> implements Set<T> {
   /**
    * First list entry
    */

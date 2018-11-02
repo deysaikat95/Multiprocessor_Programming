@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicMarkableReference;
  * @param T Item type.
  * @author Maurice Herlihy
  */
-public class LockFreeList<T> {
+public class LockFreeList<T> implements Set<T> {
   /**
    * First list node
    */
