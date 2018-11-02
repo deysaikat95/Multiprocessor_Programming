@@ -9,7 +9,7 @@ public class Main {
 	static int TOTAL_ITERS;
 	static int ITER = 1000;
 
-	static Set<Integer> myList;
+	volatile static Set<Integer> myList;
 	//static Set<Integer> myFineList;
 	//static Set<Integer> myLazyList;
 	//static Set<Integer> myOptimisticList;

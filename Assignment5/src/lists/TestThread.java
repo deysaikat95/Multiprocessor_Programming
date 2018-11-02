@@ -4,7 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
- * @author Balaji Arun
+ * @author Mincheol Sung
  */
 
 public class TestThread extends Thread implements ThreadId{
@@ -30,34 +30,22 @@ public class TestThread extends Thread implements ThreadId{
 		switch (operation) {
 		case 0:
 			for(int i = 0; i < iter; i++) {
-				while(true) {
-					int randomInt = threadLocalRandom.nextInt(0, 100);
-					if (set.add(randomInt))
-					{
-						//System.out.println((randomInt+i) + " add");
-						break;
-					}
-				}
+				int randomInt = threadLocalRandom.nextInt(0, Integer.MAX_VALUE);
+				set.add(randomInt%100);
 			}
 			break;
 
 		case 1:
 			for(int i = 0; i < iter; i++) {
-				while(true) {
-					int randomInt = threadLocalRandom.nextInt(0, 100);
-					if (set.remove(randomInt))
-					{
-						//System.out.println((randomInt+i) + " remove");
-						break;
-					}
-				}
+				int randomInt = threadLocalRandom.nextInt(0, Integer.MAX_VALUE);
+				set.remove(randomInt%100);
 			}
 			break;
 
 		case 2:
 			for(int i = 0; i < iter; i++) {
-				int randomInt = threadLocalRandom.nextInt(0, 100);
-				set.contains(randomInt);
+				int randomInt = threadLocalRandom.nextInt(0, Integer.MAX_VALUE);
+				set.contains(randomInt%100);
 			}
 			break;
 		
