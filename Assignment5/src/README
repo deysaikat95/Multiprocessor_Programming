@@ -1,0 +1,7 @@
+To build
+$ make
+
+To run benchmark
+$./runThis.sh
+
+Results are in "plots" directory
