@@ -44,9 +44,9 @@ java -cp ".:/usr/share/java/junit4.jar" lists.Main LazyList $ADD $REMOVE $CONTAI
 java -cp ".:/usr/share/java/junit4.jar" lists.Main OptimisticList $ADD $REMOVE $CONTAINS $ITER >> p4/OptimisticList
 java -cp ".:/usr/share/java/junit4.jar" lists.Main LockFreeList $ADD $REMOVE $CONTAINS $ITER >> p4/LockFreeList
 
-ADD=4
-REMOVE=3
-CONTAINS=26
+ADD=2
+REMOVE=2
+CONTAINS=18
 echo "ADD:$ADD REMOVE:$REMOVE CONTAINS:$CONTAINS"
 java -cp ".:/usr/share/java/junit4.jar" lists.Main CoarseList $ADD $REMOVE $CONTAINS $ITER >> p4/CoarseList
 java -cp ".:/usr/share/java/junit4.jar" lists.Main FineList $ADD $REMOVE $CONTAINS $ITER >> p4/FineList
