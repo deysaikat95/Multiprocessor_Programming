@@ -4,4 +4,5 @@ $ make
 To run benchmark
 $./runThis.sh
 
+**You need to fix results in p5
 Results are in "plots" directory
