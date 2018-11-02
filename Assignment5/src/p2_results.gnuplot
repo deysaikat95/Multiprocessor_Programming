@@ -6,7 +6,7 @@ set style line 2 pointtype 8 linecolor rgbcolor 'red'
 set style line 3 pointtype 6 linecolor rgbcolor 'black'
 set style line 4 pointtype 4 linecolor rgbcolor 'orange'
 set style line 5 pointtype 2 linecolor rgbcolor 'green'
-set output 'p2_results.pdf'
+set output 'plots/p2_results.pdf'
 
 set grid
 set pointsize 2
@@ -18,6 +18,6 @@ set xlabel 'Threads'
 set ylabel 'Throughput (M Ops/s)'
 set xtics 4,2,40
 set xrange [4:40]
-set yrange [0:600]
+set yrange [0:1000]
 plot for [i=1:words(list)] word(list,i) using ($1):($2) \
 title word('CoarseList FineList LazyList OptimisticList LockFreeList', i) linestyle i
