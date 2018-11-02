@@ -6,18 +6,18 @@ set style line 2 pointtype 8 linecolor rgbcolor 'red'
 set style line 3 pointtype 6 linecolor rgbcolor 'black'
 set style line 4 pointtype 4 linecolor rgbcolor 'orange'
 set style line 5 pointtype 2 linecolor rgbcolor 'green'
-set output 'p1_results.pdf'
+set output 'p5_results.pdf'
 
 set grid
 set pointsize 2
 
 set key top right inside
-list = 'p1/CoarseList p1/FineList p1/LazyList p1/OptimisticList p1/LockFreeList'
+list = 'p5/CoarseList p5/FineList p5/LazyList p5/OptimisticList p5/LockFreeList'
 
-set xlabel 'Threads'
+set xlabel 'Contains (%)'
 set ylabel 'Throughput (M Ops/s)'
-set xtics 4,2,40
-set xrange [4:40]
+set xtics 20,20,80
+set xrange [20:80]
 set yrange [0:600]
 plot for [i=1:words(list)] word(list,i) using ($1):($2) \
 title word('CoarseList FineList LazyList OptimisticList LockFreeList', i) linestyle i

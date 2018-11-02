@@ -6,13 +6,13 @@ set style line 2 pointtype 8 linecolor rgbcolor 'red'
 set style line 3 pointtype 6 linecolor rgbcolor 'black'
 set style line 4 pointtype 4 linecolor rgbcolor 'orange'
 set style line 5 pointtype 2 linecolor rgbcolor 'green'
-set output 'p1_results.pdf'
+set output 'p2_results.pdf'
 
 set grid
 set pointsize 2
 
 set key top right inside
-list = 'p1/CoarseList p1/FineList p1/LazyList p1/OptimisticList p1/LockFreeList'
+list = 'p2/CoarseList p2/FineList p2/LazyList p2/OptimisticList p2/LockFreeList'
 
 set xlabel 'Threads'
 set ylabel 'Throughput (M Ops/s)'
