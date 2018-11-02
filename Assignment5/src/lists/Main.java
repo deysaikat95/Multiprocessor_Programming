@@ -75,6 +75,6 @@ public class Main {
 			totalTime += threads[t].getElapsedTime();
 		}
 		
-		System.out.println(TOTAL_ITERS/totalTime);
+		System.out.println(TOTAL_THREAD_COUNT+ " " + (TOTAL_ITERS/totalTime));
 	}
 }
