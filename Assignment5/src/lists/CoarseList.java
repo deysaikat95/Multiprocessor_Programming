@@ -68,7 +68,7 @@ public class CoarseList<T> implements Set<T> {
       } catch (Exception e) 
       {
         System.out.println(e);
-	return false;
+		return false;
       }
     }
   }
@@ -98,12 +98,11 @@ public class CoarseList<T> implements Set<T> {
       } else {
         return false;         // not present
       }
-    } catch (Exception e)
-    {
-	System.out.println(e);
-	return false;
+    } catch (Exception e) {
+	  System.out.println(e);
+	  return false;
     }
-   }
+  }
   /*
     } finally {               // always unlock
       lock.unlock();
@@ -118,7 +117,8 @@ public class CoarseList<T> implements Set<T> {
   public boolean contains(T item) {
     Node pred, curr;
     int key = item.hashCode();
-    lock.lock();
+    //lock.lock();
+	synchronized(this) {
     try {
       pred = head;
       curr = pred.next;
@@ -127,8 +127,10 @@ public class CoarseList<T> implements Set<T> {
         curr = curr.next;
       }
       return (key == curr.key);
-    } finally {               // always unlock
-      lock.unlock();
+    } catch (Exception e) {
+		System.out.println(e);
+		return false;
+      }
     }
   }
   /**
