@@ -6,7 +6,7 @@ set style line 2 pointtype 8 linecolor rgbcolor 'red'
 set style line 3 pointtype 6 linecolor rgbcolor 'black'
 set style line 4 pointtype 4 linecolor rgbcolor 'orange'
 set style line 5 pointtype 2 linecolor rgbcolor 'green'
-set output 'plots/p1_results.pdf'
+set output 'plots/p1_results.eps'
 
 set grid
 set pointsize 2
