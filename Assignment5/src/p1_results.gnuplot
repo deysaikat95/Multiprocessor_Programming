@@ -18,6 +18,6 @@ set xlabel 'Threads'
 set ylabel 'Throughput (M Ops/s)'
 set xtics 4,2,40
 set xrange [4:40]
-set yrange [0:600]
+set yrange [0:1000]
 plot for [i=1:words(list)] word(list,i) using ($1):($2) \
 title word('CoarseList FineList LazyList OptimisticList LockFreeList', i) linestyle i
