@@ -14,6 +14,7 @@ class TwoThreadLockFreeQueue<T> {
   int head = 0;   // next item to dequeue
   int tail = 0;   // next empty slot
   T[] items; // queue contents
+  @SuppressWarnings("unchecked")
   public TwoThreadLockFreeQueue(int capacity) {
     head = 0; tail = 0;
     items = (T[]) new Object[capacity];

@@ -24,6 +24,7 @@ public class Queue<T> {
    * Constructor.
    * @param capacity Max number of items allowed in queue.
    */
+  @SuppressWarnings("unchecked")
   public Queue(int capacity) {
     items = (T[]) new Object[capacity];
     head = size = 0;

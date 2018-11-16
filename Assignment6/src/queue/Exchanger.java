@@ -35,6 +35,7 @@ public class Exchanger<V> {
     for (int i = 0; i < arena.length; ++i)
       arena[i] = new AtomicReference();
   }
+  @SuppressWarnings("unchecked")
   public V exchange(V x) throws InterruptedException {
     try {
       return (V)doExchange(x, Integer.MAX_VALUE);
@@ -42,10 +43,12 @@ public class Exchanger<V> {
       throw new Error(cannotHappen);
     }
   }
+  @SuppressWarnings("unchecked")
   public V exchange(V x, long timeout, TimeUnit unit)
   throws InterruptedException, TimeoutException {
     return (V)doExchange(x, unit.toNanos(timeout));
   }
+  @SuppressWarnings("unchecked")
   private Object doExchange(Object item, long nanos)
       throws InterruptedException, TimeoutException {
     Node me = new Node(item);

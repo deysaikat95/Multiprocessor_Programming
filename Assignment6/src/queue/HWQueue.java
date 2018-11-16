@@ -22,7 +22,8 @@ public class HWQueue<T> {
   AtomicReference<T>[] items;
   AtomicInteger tail;
   static final int CAPACITY = 1024;
-  
+
+  @SuppressWarnings("unchecked")
   public HWQueue() {
     items =(AtomicReference<T>[])Array.newInstance(AtomicReference.class,
         CAPACITY);

@@ -29,6 +29,7 @@ public class LockFreeQueue<T> {
    * Append item to end of queue.
    * @param item
    */
+  @SuppressWarnings("unchecked")
   public void enq(T item) {
     if (item == null) throw new NullPointerException();
     Node node = new Node(item); // allocate & initialize new node
