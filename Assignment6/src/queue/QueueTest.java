@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @author Maurice Herlihy
  */
 public class QueueTest extends TestCase {
-	private static int THREADS = 8;
+	private static int THREADS = 0;
 	private static int duration = 0;
 	private static int n = 1;
 	
@@ -53,6 +53,6 @@ public class QueueTest extends TestCase {
 			threads[t].join();
 			totalCount += threads[t].getCount();
 		}
-		System.out.println("Count: " + totalCount);
+		System.out.println(totalCount/duration);
 	}
 }
