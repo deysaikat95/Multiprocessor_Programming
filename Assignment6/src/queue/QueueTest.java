@@ -31,8 +31,14 @@ public class QueueTest extends TestCase {
 		else
 			n = 5;
 
-		int ENQ_THREADS = THREADS/2;
-		int DEQ_THREADS = THREADS - ENQ_THREADS;
+		int ENQ_THREADS = 0;
+		int DEQ_THREADS = 0;
+		if (THREADS == 1)
+			ENQ_THREADS = 1;
+		else {
+			ENQ_THREADS = THREADS/2;
+			DEQ_THREADS = THREADS - ENQ_THREADS;
+		}
 
 		final TestThread[] threads = new TestThread[THREADS];
 
