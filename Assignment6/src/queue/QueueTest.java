@@ -49,10 +49,20 @@ public class QueueTest extends TestCase {
 		}
 		
 		long totalCount = 0;
+		long enqCount = 0;
+		long deqCount = 0;
+		int size;
 		for (int t = 0; t < THREADS; t++) {
 			threads[t].join();
 			totalCount += threads[t].getCount();
+			enqCount += threads[t].getEnqCount();
+			deqCount += threads[t].getDeqCount();
 		}
+		if (args[0].equals("LQueue"))
+			size = threads[0].getSizeLQueue();
+		else
+			size = threads[0].getSizeSLQueue();
+		System.out.println(enqCount + " " + deqCount + " " + size);
 		System.out.println(totalCount/duration);
 	}
 }

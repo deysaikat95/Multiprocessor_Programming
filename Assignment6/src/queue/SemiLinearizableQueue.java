@@ -6,11 +6,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class SemiLinearizableQueue<T>  {
-	private AtomicInteger size;
 	private AtomicReference<Node> head;
 	private AtomicReference<Node> tail;
 	private static int n;
 	private ThreadLocalRandom threadLocalRandom;
+	private AtomicInteger size = new AtomicInteger();
 
 	public SemiLinearizableQueue(int n) {
 		Node sentinel = new Node(null);
@@ -44,6 +44,7 @@ public class SemiLinearizableQueue<T>  {
 				if (next == null) {
 					if (last.next.compareAndSet(next, node)) {
 						tail.compareAndSet(last, node);
+						size.getAndIncrement();
 						return;
 					}
 				} else {
@@ -55,6 +56,8 @@ public class SemiLinearizableQueue<T>  {
 
 	public T deq() throws EmptyException {	
 		int cnt = 0;
+		if (cnt!=0)
+		System.out.println(cnt);
 		while (true) {
 			Node first = head.get();
 			Node last = tail.get();
@@ -72,8 +75,10 @@ public class SemiLinearizableQueue<T>  {
 
 							T value = pick(randomIdx, next);
 							if (value != null)
+							{
+								size.getAndDecrement();
 								return value;
-
+							}
 							if (next != null && next.marked.get() == true) {
 								if (next != last && head.compareAndSet(first, next)) {
 									first = next;
@@ -85,22 +90,33 @@ public class SemiLinearizableQueue<T>  {
 								}
 
 								if (next.marked.compareAndSet(false, true))
+								{
+									size.getAndDecrement();
 									return next.value;
+								}
 							}
 							cnt++;
 						} else {
 							T value = next.value;
-							if (head.compareAndSet(first, next))
+							if (head.compareAndSet(first, next)) {
+								size.getAndDecrement();
 								return value;
+							}
 						}
 					} else { // Regular FIFO queue
 						T value = next.value;
-						if (head.compareAndSet(first, next))
+						if (head.compareAndSet(first, next)) {
+							size.getAndDecrement();
 							return value;
+						}
 					}
 				}
 			}
 		}
+	}
+
+	public int size() {
+		return size.get();
 	}
 
 	protected class Node {
